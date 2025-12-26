@@ -34,7 +34,20 @@ export default function Home() {
     const interval = setInterval(() => {
       setCurrentVideo((prev) => (prev + 1) % VIDEO_BACKGROUNDS.length);
     }, 10000);
-    return () => clearInterval(interval);
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight") {
+        setCurrentVideo((prev) => (prev + 1) % VIDEO_BACKGROUNDS.length);
+      } else if (e.key === "ArrowLeft") {
+        setCurrentVideo((prev) => (prev - 1 + VIDEO_BACKGROUNDS.length) % VIDEO_BACKGROUNDS.length);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, []);
 
   if (!mounted) return null;
