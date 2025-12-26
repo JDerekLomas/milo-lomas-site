@@ -34,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} antialiased noise scanlines`}
+        className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} antialiased noise scanlines vhs-tracking`}
       >
         {children}
       </body>

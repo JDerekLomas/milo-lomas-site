@@ -11,6 +11,8 @@ const VIDEO_BACKGROUNDS = [
   "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/96fb0ed4-0ff9-484a-8e73-a07708f07e46/result_00.mp4",
 ];
 
+const MARQUEE_TEXT = "MILO LOMAS • AMSTERDAM • EXPERIMENTAL • SONIC ARCHITECT • PITTSBURGH ROOTS • BREMEN BLOOD • CHAGRIN FALLS • ";
+
 export default function Home() {
   const [currentVideo, setCurrentVideo] = useState(0);
   const [mounted, setMounted] = useState(false);
@@ -19,18 +21,18 @@ export default function Home() {
     setMounted(true);
     const interval = setInterval(() => {
       setCurrentVideo((prev) => (prev + 1) % VIDEO_BACKGROUNDS.length);
-    }, 20000); // Change video every 20 seconds
+    }, 15000);
     return () => clearInterval(interval);
   }, []);
 
   if (!mounted) return null;
 
   return (
-    <main className="relative min-h-screen">
+    <main className="relative min-h-screen cursor-glow">
       {/* Video Background */}
       <video
         key={currentVideo}
-        className="video-bg"
+        className="video-bg glitch-constant"
         autoPlay
         loop
         muted
@@ -40,165 +42,202 @@ export default function Home() {
       </video>
 
       {/* Content */}
-      <div className="relative z-10 min-h-screen flex flex-col">
+      <div className="relative z-10 min-h-screen distort-wave">
+
+        {/* Marquee Banner */}
+        <div className="marquee py-2 bg-black/40 backdrop-blur-sm text-xs tracking-[0.3em] text-zinc-500 uppercase">
+          <div className="marquee-content">
+            {MARQUEE_TEXT}{MARQUEE_TEXT}{MARQUEE_TEXT}{MARQUEE_TEXT}
+          </div>
+        </div>
+
         {/* Hero Section */}
-        <section className="flex-1 flex flex-col items-center justify-center px-6 py-20">
-          <div className="text-center max-w-3xl">
-            <h1 className="fade-in text-6xl md:text-8xl font-light tracking-tight mb-6 pulse-glow">
+        <section className="min-h-screen flex flex-col items-center justify-center px-6 py-20 psychedelic-bg">
+          <div className="text-center max-w-4xl">
+            <h1
+              className="fade-in text-7xl md:text-9xl font-extralight tracking-tighter mb-4 pulse-glow glitch-heavy rgb-split"
+              data-text="Milo Lomas"
+            >
               Milo Lomas
             </h1>
-            <p className="fade-in fade-in-delay-1 text-lg md:text-xl text-zinc-400 font-light tracking-wide mb-8">
-              Amsterdam
+
+            <div className="fade-in fade-in-delay-1 flex items-center justify-center gap-2 text-zinc-500 text-sm tracking-[0.2em] uppercase mb-12">
+              <span className="glitch-hover">Amsterdam</span>
               <span className="section-dot" />
-              Experimental Music
+              <span className="glitch-hover">Experimental</span>
               <span className="section-dot" />
-              Sonic Architect
-            </p>
-            <nav className="fade-in fade-in-delay-2 flex flex-wrap justify-center gap-6 text-sm uppercase tracking-widest">
-              <a href="#music" className="glitch-hover hover:text-white transition-colors">
-                Listen
+              <span className="glitch-hover">Sonic</span>
+            </div>
+
+            <nav className="fade-in fade-in-delay-2 flex flex-wrap justify-center gap-8 text-lg">
+              <a href="#listen" className="glitch-hover hover:text-white transition-colors float" style={{animationDelay: '0s'}}>
+                ↓ Listen
               </a>
-              <a href="#about" className="glitch-hover hover:text-white transition-colors">
-                About
+              <a href="#about" className="glitch-hover hover:text-white transition-colors float" style={{animationDelay: '0.5s'}}>
+                ↓ About
               </a>
-              <a href="#contact" className="glitch-hover hover:text-white transition-colors">
-                Contact
+              <a href="#connect" className="glitch-hover hover:text-white transition-colors float" style={{animationDelay: '1s'}}>
+                ↓ Connect
               </a>
             </nav>
           </div>
+
+          {/* Floating coordinates */}
+          <div className="absolute bottom-10 left-10 text-xs font-mono text-zinc-600 warp-text">
+            52.3676°N
+          </div>
+          <div className="absolute bottom-10 right-10 text-xs font-mono text-zinc-600 warp-text">
+            4.9041°E
+          </div>
         </section>
 
-        {/* Music Section */}
-        <section id="music" className="px-6 py-20 bg-black/60 backdrop-blur-sm">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="fade-in text-3xl md:text-4xl font-light mb-12 text-center tracking-tight">
-              Music
-            </h2>
+        {/* Listen Section - Flows from hero */}
+        <section id="listen" className="relative px-6 py-32 section-flow">
+          <div className="max-w-5xl mx-auto">
 
-            {/* SoundCloud Embed */}
-            <div className="fade-in fade-in-delay-1 mb-12">
+            {/* Section title - offset */}
+            <div className="mb-16 ml-[10%]">
+              <span className="text-xs tracking-[0.5em] text-zinc-600 uppercase block mb-2">001</span>
+              <h2 className="text-5xl md:text-7xl font-extralight tracking-tight glitch-hover">
+                Listen
+              </h2>
+            </div>
+
+            {/* SoundCloud Embed - offset other direction */}
+            <div className="mr-[5%] mb-16">
               <iframe
                 width="100%"
-                height="450"
+                height="400"
                 scrolling="no"
                 frameBorder="no"
                 allow="autoplay"
-                src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/xwhysi&color=%238b5cf6&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"
-                className="rounded-lg"
+                src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/xwhysi&color=%238b5cf6&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true"
+                className="rounded-xl opacity-90 hover:opacity-100 transition-opacity"
               />
             </div>
 
-            {/* Streaming Links */}
-            <div className="fade-in fade-in-delay-2 flex flex-wrap justify-center gap-4 text-sm">
+            {/* Links - scattered */}
+            <div className="flex flex-wrap gap-4 ml-[15%]">
               <a
                 href="https://soundcloud.com/xwhysi"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-3 border border-zinc-700 rounded-full hover:border-violet-500 hover:bg-violet-500/10 transition-all"
+                className="px-8 py-4 border border-zinc-800 rounded-full hover:border-violet-500 hover:bg-violet-500/10 transition-all glitch-hover text-sm tracking-wider"
+              >
+                SoundCloud →
+              </a>
+              <span className="px-8 py-4 border border-zinc-800/50 rounded-full text-zinc-600 text-sm tracking-wider">
+                Spotify soon
+              </span>
+              <span className="px-8 py-4 border border-zinc-800/50 rounded-full text-zinc-600 text-sm tracking-wider">
+                Apple soon
+              </span>
+            </div>
+          </div>
+        </section>
+
+        {/* About Section - Flows naturally */}
+        <section id="about" className="relative px-6 py-32">
+          <div className="max-w-4xl mx-auto">
+
+            {/* Section title - offset right */}
+            <div className="mb-16 mr-[10%] text-right">
+              <span className="text-xs tracking-[0.5em] text-zinc-600 uppercase block mb-2">002</span>
+              <h2 className="text-5xl md:text-7xl font-extralight tracking-tight glitch-hover">
+                About
+              </h2>
+            </div>
+
+            {/* Bio text - staggered blocks */}
+            <div className="space-y-12">
+              <p className="text-2xl md:text-3xl font-extralight leading-relaxed text-zinc-300 ml-[5%] max-w-2xl">
+                Born in Pittsburgh. Mother from Bremen, father from Chagrin Falls.
+              </p>
+
+              <p className="text-xl md:text-2xl font-extralight leading-relaxed text-zinc-400 mr-[10%] ml-auto max-w-xl text-right">
+                Now in Amsterdam, creating sonic landscapes between organic and artificial.
+              </p>
+
+              <p className="text-lg font-extralight leading-relaxed text-zinc-500 ml-[15%] max-w-md">
+                Influenced by the uncanny valleys of Aphex Twin. The nature-technology fusion of Björk.
+                Music that breathes but you&apos;re not sure if it&apos;s alive.
+              </p>
+            </div>
+
+            {/* Origin trail */}
+            <div className="mt-20 flex flex-wrap justify-between text-xs tracking-[0.3em] text-zinc-700 uppercase">
+              <span className="glitch-hover">Pittsburgh PA</span>
+              <span className="text-violet-500">→</span>
+              <span className="glitch-hover">Bremen DE</span>
+              <span className="text-violet-500">→</span>
+              <span className="glitch-hover">Chagrin Falls OH</span>
+              <span className="text-violet-500">→</span>
+              <span className="glitch-hover text-zinc-400">Amsterdam NL</span>
+            </div>
+          </div>
+        </section>
+
+        {/* Connect Section */}
+        <section id="connect" className="relative px-6 py-32 section-flow">
+          <div className="max-w-3xl mx-auto">
+
+            {/* Section title - centered */}
+            <div className="mb-16 text-center">
+              <span className="text-xs tracking-[0.5em] text-zinc-600 uppercase block mb-2">003</span>
+              <h2 className="text-5xl md:text-7xl font-extralight tracking-tight glitch-hover">
+                Connect
+              </h2>
+            </div>
+
+            {/* Links - large and spaced */}
+            <div className="flex flex-col items-center gap-6">
+              <a
+                href="https://instagram.com/xwhysi"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-3xl md:text-4xl font-extralight glitch-hover hover:text-violet-400 transition-colors"
+              >
+                Instagram
+              </a>
+              <a
+                href="https://soundcloud.com/xwhysi"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-3xl md:text-4xl font-extralight glitch-hover hover:text-violet-400 transition-colors"
               >
                 SoundCloud
               </a>
               <a
-                href="#"
-                className="px-6 py-3 border border-zinc-700 rounded-full hover:border-violet-500 hover:bg-violet-500/10 transition-all opacity-50 cursor-not-allowed"
+                href="mailto:hello@milolomas.com"
+                className="text-3xl md:text-4xl font-extralight glitch-hover hover:text-violet-400 transition-colors"
               >
-                Spotify (Coming Soon)
-              </a>
-              <a
-                href="#"
-                className="px-6 py-3 border border-zinc-700 rounded-full hover:border-violet-500 hover:bg-violet-500/10 transition-all opacity-50 cursor-not-allowed"
-              >
-                Apple Music (Coming Soon)
+                Email
               </a>
             </div>
+
+            {/* Booking note */}
+            <p className="mt-16 text-center text-sm text-zinc-600 tracking-wide">
+              For bookings, collaborations, or just to say what&apos;s up
+            </p>
           </div>
         </section>
 
-        {/* About Section */}
-        <section id="about" className="px-6 py-20">
-          <div className="max-w-2xl mx-auto">
-            <h2 className="fade-in text-3xl md:text-4xl font-light mb-12 text-center tracking-tight">
-              About
-            </h2>
-
-            <div className="fade-in fade-in-delay-1 space-y-6 text-zinc-400 leading-relaxed">
-              <p>
-                Born in Pittsburgh. Mother from Bremen, father from Chagrin Falls, Ohio.
-                Now based in Amsterdam.
-              </p>
-              <p>
-                Creating sonic landscapes that exist between the organic and the artificial.
-                Influenced by the uncanny valleys of Aphex Twin and the nature-technology
-                fusion of Björk. Music that feels like it&apos;s breathing, but you&apos;re not
-                sure if it&apos;s alive.
-              </p>
-              <p>
-                Each track is an experiment in texture, emotion, and controlled chaos.
-                The goal isn&apos;t to be understood immediately—it&apos;s to create something
-                that rewards attention.
-              </p>
-            </div>
-
-            {/* Origin markers */}
-            <div className="fade-in fade-in-delay-2 mt-12 flex flex-wrap justify-center gap-8 text-xs uppercase tracking-widest text-zinc-600">
-              <span>Pittsburgh, PA</span>
-              <span className="section-dot" />
-              <span>Bremen, DE</span>
-              <span className="section-dot" />
-              <span>Chagrin Falls, OH</span>
-              <span className="section-dot" />
-              <span>Amsterdam, NL</span>
-            </div>
+        {/* Footer - minimal */}
+        <footer className="px-6 py-16 text-center">
+          <div className="text-xs text-zinc-700 tracking-[0.2em] space-y-2">
+            <p>© {new Date().getFullYear()} MILO LOMAS</p>
+            <p className="font-mono glitch-hover">
+              ALL SOUNDS BELONG TO THE VOID
+            </p>
           </div>
-        </section>
-
-        {/* Contact Section */}
-        <section id="contact" className="px-6 py-20 bg-black/60 backdrop-blur-sm">
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="fade-in text-3xl md:text-4xl font-light mb-12 tracking-tight">
-              Contact
-            </h2>
-
-            <div className="fade-in fade-in-delay-1 space-y-8">
-              <p className="text-zinc-400">
-                For bookings, collaborations, or just to say hello.
-              </p>
-
-              <div className="flex flex-wrap justify-center gap-6">
-                <a
-                  href="https://instagram.com/xwhysi"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3 border border-zinc-700 rounded-full hover:border-violet-500 hover:bg-violet-500/10 transition-all"
-                >
-                  Instagram
-                </a>
-                <a
-                  href="https://soundcloud.com/xwhysi"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3 border border-zinc-700 rounded-full hover:border-violet-500 hover:bg-violet-500/10 transition-all"
-                >
-                  SoundCloud
-                </a>
-                <a
-                  href="mailto:hello@milolomas.com"
-                  className="px-6 py-3 border border-zinc-700 rounded-full hover:border-violet-500 hover:bg-violet-500/10 transition-all"
-                >
-                  Email
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Footer */}
-        <footer className="px-6 py-8 text-center text-xs text-zinc-600 tracking-wide">
-          <p>© {new Date().getFullYear()} Milo Lomas. All rights reserved.</p>
-          <p className="mt-2 font-mono text-zinc-700">
-            52.3676° N, 4.9041° E
-          </p>
         </footer>
+
+        {/* Marquee Banner - bottom */}
+        <div className="marquee py-2 bg-black/40 backdrop-blur-sm text-xs tracking-[0.3em] text-zinc-500 uppercase">
+          <div className="marquee-content" style={{animationDirection: 'reverse'}}>
+            {MARQUEE_TEXT}{MARQUEE_TEXT}{MARQUEE_TEXT}{MARQUEE_TEXT}
+          </div>
+        </div>
       </div>
     </main>
   );
