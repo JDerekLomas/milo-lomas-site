@@ -39,29 +39,49 @@ const MARQUEE_TEXT = "XWHYSI • AMSTERDAM • EXPERIMENTAL • SONIC ARCHITECT 
 export default function Home() {
   const [currentVideo, setCurrentVideo] = useState(0);
   const [mounted, setMounted] = useState(false);
+  const [tripping, setTripping] = useState(false);
+  const [musicStarted, setMusicStarted] = useState(false);
+
+  const startMusic = () => {
+    if (musicStarted) return;
+    const iframe = document.querySelector('iframe[src*="soundcloud"]') as HTMLIFrameElement;
+    if (iframe) {
+      iframe.contentWindow?.postMessage('{"method":"play"}', '*');
+      setMusicStarted(true);
+    }
+  };
+
+  const spaceOut = () => {
+    setTripping(true);
+    startMusic();
+    // Rapid video switching
+    let count = 0;
+    const tripInterval = setInterval(() => {
+      setCurrentVideo(Math.floor(Math.random() * VIDEOS.length));
+      count++;
+      if (count > 20) {
+        clearInterval(tripInterval);
+        setTripping(false);
+      }
+    }, 200);
+  };
 
   useEffect(() => {
     setMounted(true);
     const interval = setInterval(() => {
-      setCurrentVideo((prev) => (prev + 1) % VIDEOS.length);
+      if (!tripping) {
+        setCurrentVideo((prev) => (prev + 1) % VIDEOS.length);
+      }
     }, 10000);
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight" || e.key === " ") {
         e.preventDefault();
         setCurrentVideo((prev) => (prev + 1) % VIDEOS.length);
-        // Try to play SoundCloud
-        const iframe = document.querySelector('iframe[src*="soundcloud"]') as HTMLIFrameElement;
-        if (iframe) {
-          iframe.contentWindow?.postMessage('{"method":"play"}', '*');
-        }
+        startMusic();
       } else if (e.key === "ArrowLeft") {
         setCurrentVideo((prev) => (prev - 1 + VIDEOS.length) % VIDEOS.length);
-        // Try to play SoundCloud
-        const iframe = document.querySelector('iframe[src*="soundcloud"]') as HTMLIFrameElement;
-        if (iframe) {
-          iframe.contentWindow?.postMessage('{"method":"play"}', '*');
-        }
+        startMusic();
       }
     };
 
@@ -70,16 +90,19 @@ export default function Home() {
       clearInterval(interval);
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [tripping, musicStarted]);
 
   if (!mounted) return null;
 
   return (
-    <main className="relative min-h-screen cursor-glow">
+    <main
+      className={`relative min-h-screen cursor-glow ${tripping ? 'tripping' : ''}`}
+      onClick={startMusic}
+    >
       {/* Video Background */}
       <video
         key={currentVideo}
-        className="video-bg glitch-constant"
+        className={`video-bg ${tripping ? 'tripping-video' : 'glitch-constant'}`}
         autoPlay
         loop
         muted
@@ -93,8 +116,20 @@ export default function Home() {
         <span className="text-violet-400">{currentVideo + 1}/{VIDEOS.length}</span>
         <span className="mx-2">•</span>
         <span>{VIDEOS[currentVideo].label}</span>
-        <span className="ml-3 text-zinc-600">← → SPACE</span>
+        <span className="ml-3 text-zinc-600 hidden md:inline">← → SPACE</span>
       </div>
+
+      {/* Space Out Button */}
+      <button
+        onClick={(e) => { e.stopPropagation(); spaceOut(); }}
+        className={`fixed top-4 right-4 z-50 px-4 py-2 rounded-full text-xs font-bold tracking-wider transition-all ${
+          tripping
+            ? 'bg-pink-500 text-white animate-pulse scale-110'
+            : 'bg-violet-600/80 hover:bg-violet-500 text-white hover:scale-105'
+        }`}
+      >
+        {tripping ? '◉ TRIPPING ◉' : '✧ SPACE OUT ✧'}
+      </button>
 
       {/* Content */}
       <div className="relative z-10 min-h-screen distort-wave">

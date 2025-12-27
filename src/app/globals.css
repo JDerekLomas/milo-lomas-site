@@ -432,3 +432,60 @@ a:hover {
     filter: hue-rotate(30deg);
   }
 }
+
+/* TRIPPING MODE */
+.tripping {
+  animation: tripScreen 0.1s infinite;
+}
+
+.tripping-video {
+  animation: tripVideo 0.15s infinite;
+  filter: saturate(3) contrast(1.5) hue-rotate(var(--trip-hue, 0deg)) !important;
+}
+
+@keyframes tripScreen {
+  0% { filter: hue-rotate(0deg) saturate(1); }
+  20% { filter: hue-rotate(72deg) saturate(2); transform: scale(1.02); }
+  40% { filter: hue-rotate(144deg) saturate(1.5); transform: scale(0.98) skewX(2deg); }
+  60% { filter: hue-rotate(216deg) saturate(3); transform: scale(1.01) skewX(-2deg); }
+  80% { filter: hue-rotate(288deg) saturate(2); transform: scale(0.99); }
+  100% { filter: hue-rotate(360deg) saturate(1); }
+}
+
+@keyframes tripVideo {
+  0% {
+    --trip-hue: 0deg;
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  25% {
+    --trip-hue: 90deg;
+    transform: scale(1.1) rotate(1deg);
+    opacity: 0.8;
+  }
+  50% {
+    --trip-hue: 180deg;
+    transform: scale(0.95) rotate(-1deg);
+    opacity: 1;
+  }
+  75% {
+    --trip-hue: 270deg;
+    transform: scale(1.05) rotate(0.5deg);
+    opacity: 0.9;
+  }
+  100% {
+    --trip-hue: 360deg;
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.tripping * {
+  animation-duration: 0.5s !important;
+}
+
+.tripping .rgb-split::before,
+.tripping .rgb-split::after {
+  animation-duration: 0.1s !important;
+  opacity: 1 !important;
+}
