@@ -16,15 +16,67 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "XWHYSI",
-  description: "Experimental music from Amsterdam. Pittsburgh roots. Sonic landscapes between the organic and the artificial.",
-  keywords: ["music", "experimental", "electronic", "Amsterdam", "producer", "artist", "XWHYSI", "Milo Lomas"],
+  title: "XWHYSI | Experimental Electronic Music",
+  description: "XWHYSI - Experimental electronic music from Amsterdam. Sonic landscapes between organic and artificial. Pittsburgh → San Diego → Amsterdam.",
+  keywords: ["XWHYSI", "experimental music", "electronic music", "Amsterdam music", "experimental electronic", "ambient", "glitch", "producer", "Milo Lomas", "SoundCloud artist"],
   authors: [{ name: "XWHYSI" }],
+  creator: "XWHYSI",
+  publisher: "XWHYSI",
+  metadataBase: new URL("https://xwhysi.com"),
+  alternates: {
+    canonical: "https://xwhysi.com",
+  },
   openGraph: {
-    title: "XWHYSI",
-    description: "Experimental music from Amsterdam",
+    title: "XWHYSI | Experimental Electronic Music",
+    description: "Sonic landscapes between organic and artificial. Pittsburgh → San Diego → Amsterdam.",
+    url: "https://xwhysi.com",
+    siteName: "XWHYSI",
+    locale: "en_US",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "XWHYSI | Experimental Electronic Music",
+    description: "Sonic landscapes between organic and artificial. Pittsburgh → San Diego → Amsterdam.",
+    creator: "@xwhysi",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  verification: {
+    google: "verification_token",
+  },
+  category: "music",
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "MusicGroup",
+  name: "XWHYSI",
+  alternateName: "Milo Lomas",
+  description: "Experimental electronic music from Amsterdam. Sonic landscapes between organic and artificial.",
+  url: "https://xwhysi.com",
+  genre: ["Experimental", "Electronic", "Ambient", "Glitch"],
+  foundingLocation: {
+    "@type": "Place",
+    name: "Pittsburgh, PA",
+  },
+  location: {
+    "@type": "Place",
+    name: "Amsterdam, Netherlands",
+  },
+  sameAs: [
+    "https://soundcloud.com/xwhysi",
+    "https://instagram.com/xwhysi",
+  ],
 };
 
 export default function RootLayout({
@@ -38,6 +90,10 @@ export default function RootLayout({
         <Script
           src="https://w.soundcloud.com/player/api.js"
           strategy="beforeInteractive"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
       <body
