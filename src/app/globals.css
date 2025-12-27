@@ -1,190 +1,182 @@
 @import "tailwindcss";
 
+:root {
+  --background: #0a0a0a;
+  --foreground: #e8e8e8;
+  --accent: #8b5cf6;
+  --accent-dim: #6d28d9;
+  --surface: #141414;
+  --border: #262626;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
-html, body {
-  background: #000;
-  overflow: hidden;
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+/* Video background container */
+.video-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+  opacity: 0.5;
+  filter: saturate(1.2) contrast(1.2) hue-rotate(var(--hue, 0deg));
+  animation: hueShift 30s ease-in-out infinite;
 }
 
-/* Floating elements - chaotic movement */
-.floater {
-  animation: floatChaos 10s ease-in-out infinite;
-  opacity: 0.7;
-  text-shadow: 0 0 20px currentColor;
+@keyframes hueShift {
+  0%, 100% { filter: saturate(1.2) contrast(1.2) hue-rotate(0deg); }
+  33% { filter: saturate(1.4) contrast(1.1) hue-rotate(30deg); }
+  66% { filter: saturate(1.0) contrast(1.3) hue-rotate(-20deg); }
 }
 
-@keyframes floatChaos {
-  0%, 100% {
-    transform: translate(0, 0) rotate(0deg) scale(1);
-    filter: hue-rotate(0deg);
-  }
-  25% {
-    transform: translate(50px, -80px) rotate(90deg) scale(1.2);
-    filter: hue-rotate(90deg);
-  }
-  50% {
-    transform: translate(-30px, 60px) rotate(180deg) scale(0.8);
-    filter: hue-rotate(180deg);
-  }
-  75% {
-    transform: translate(70px, 40px) rotate(270deg) scale(1.1);
-    filter: hue-rotate(270deg);
-  }
+/* RGB Split / Chromatic Aberration */
+.rgb-split {
+  position: relative;
 }
 
-/* Vape pens floating and spinning */
-.vape-float {
-  animation: vapeFloat 12s ease-in-out infinite;
-  opacity: 0.8;
-  filter: drop-shadow(0 0 10px #ff00ff);
-}
-
-@keyframes vapeFloat {
-  0%, 100% {
-    transform: translateY(0) rotate(0deg);
-    opacity: 0.8;
-  }
-  25% {
-    transform: translateY(-100px) rotate(15deg);
-    opacity: 1;
-  }
-  50% {
-    transform: translateY(-200px) rotate(-10deg);
-    opacity: 0.6;
-  }
-  75% {
-    transform: translateY(-50px) rotate(20deg);
-    opacity: 0.9;
-  }
-}
-
-/* Blinking light on vapes */
-.blink {
-  animation: blink 0.5s ease-in-out infinite;
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; fill: #00ff00; }
-  50% { opacity: 0.3; fill: #ff0000; }
-}
-
-/* Trippy cats with psychedelic effects */
-.trippy-cat {
-  animation: trippyCat 8s ease-in-out infinite;
-  filter: drop-shadow(0 0 15px #ff00ff);
-}
-
-@keyframes trippyCat {
-  0%, 100% {
-    transform: scale(1) rotate(0deg) translateY(0);
-    filter: hue-rotate(0deg) drop-shadow(0 0 15px #ff00ff);
-  }
-  20% {
-    transform: scale(1.5) rotate(10deg) translateY(-30px);
-    filter: hue-rotate(72deg) drop-shadow(0 0 30px #00ffff);
-  }
-  40% {
-    transform: scale(0.7) rotate(-15deg) translateY(20px);
-    filter: hue-rotate(144deg) drop-shadow(0 0 20px #ffff00);
-  }
-  60% {
-    transform: scale(1.3) rotate(5deg) translateY(-50px);
-    filter: hue-rotate(216deg) drop-shadow(0 0 25px #ff0000);
-  }
-  80% {
-    transform: scale(0.9) rotate(-8deg) translateY(10px);
-    filter: hue-rotate(288deg) drop-shadow(0 0 35px #00ff00);
-  }
-}
-
-/* Brains floating up */
-.brain-float {
-  animation: brainFloat 20s linear infinite;
-  filter: drop-shadow(0 0 20px #ff69b4);
-}
-
-@keyframes brainFloat {
-  0% {
-    transform: translateY(100vh) rotate(0deg) scale(1);
-    opacity: 0;
-  }
-  10% {
-    opacity: 0.8;
-  }
-  50% {
-    transform: translateY(50vh) rotate(180deg) scale(1.3);
-    filter: hue-rotate(180deg) drop-shadow(0 0 30px #00ffff);
-  }
-  90% {
-    opacity: 0.8;
-  }
-  100% {
-    transform: translateY(-100px) rotate(360deg) scale(0.8);
-    opacity: 0;
-  }
-}
-
-/* Syringes falling */
-.needle-fall {
-  animation: needleFall 6s linear infinite;
-  filter: drop-shadow(0 0 10px #00ff00);
-}
-
-@keyframes needleFall {
-  0% {
-    transform: translateY(-50px) rotate(45deg);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(100vh) rotate(405deg);
-    opacity: 0;
-  }
-}
-
-/* Global trippy overlay effect */
-main::before {
-  content: '';
-  position: fixed;
+.rgb-split::before,
+.rgb-split::after {
+  content: attr(data-text);
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background:
-    radial-gradient(circle at 20% 50%, rgba(255, 0, 255, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 30%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 50% 80%, rgba(255, 255, 0, 0.1) 0%, transparent 50%);
-  pointer-events: none;
-  z-index: 10;
-  animation: psychedelicPulse 5s ease-in-out infinite;
-  mix-blend-mode: screen;
+  opacity: 0.8;
 }
 
-@keyframes psychedelicPulse {
-  0%, 100% {
-    opacity: 0.3;
-    filter: hue-rotate(0deg);
+.rgb-split::before {
+  color: #ff0000;
+  animation: rgbShiftR 3s ease-in-out infinite;
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+}
+
+.rgb-split::after {
+  color: #00ffff;
+  animation: rgbShiftB 3s ease-in-out infinite;
+  clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+}
+
+@keyframes rgbShiftR {
+  0%, 100% { transform: translate(0); }
+  25% { transform: translate(-3px, 1px); }
+  50% { transform: translate(2px, -1px); }
+  75% { transform: translate(-1px, 2px); }
+}
+
+@keyframes rgbShiftB {
+  0%, 100% { transform: translate(0); }
+  25% { transform: translate(3px, -1px); }
+  50% { transform: translate(-2px, 1px); }
+  75% { transform: translate(1px, -2px); }
+}
+
+/* Constant glitch flicker */
+.glitch-constant {
+  animation: glitchFlicker 0.1s infinite;
+}
+
+@keyframes glitchFlicker {
+  0%, 90%, 100% { opacity: 1; }
+  91% { opacity: 0.8; }
+  92% { opacity: 1; }
+  93% { opacity: 0.9; transform: skewX(0deg); }
+  94% { opacity: 1; transform: skewX(0.5deg); }
+  95% { transform: skewX(-0.5deg); }
+  96% { transform: skewX(0deg); }
+}
+
+/* Heavy glitch effect */
+.glitch-heavy {
+  position: relative;
+  animation: glitchHeavy 5s infinite;
+}
+
+@keyframes glitchHeavy {
+  0%, 90%, 100% {
+    transform: translate(0);
+    filter: none;
   }
-  50% {
-    opacity: 0.6;
+  91% {
+    transform: translate(-5px, 2px) skewX(2deg);
+    filter: hue-rotate(90deg);
+  }
+  92% {
+    transform: translate(5px, -2px) skewX(-2deg);
     filter: hue-rotate(180deg);
   }
+  93% {
+    transform: translate(-3px, -1px);
+    filter: hue-rotate(270deg);
+  }
+  94% {
+    transform: translate(3px, 1px);
+    filter: none;
+  }
 }
 
-/* Scanlines overlay */
-main::after {
+/* Glitch on hover - more intense */
+.glitch-hover {
+  position: relative;
+  transition: all 0.1s;
+}
+
+.glitch-hover:hover {
+  animation: glitchIntense 0.3s ease-in-out;
+  text-shadow:
+    2px 0 #ff0000,
+    -2px 0 #00ffff;
+}
+
+@keyframes glitchIntense {
+  0%, 100% { transform: translate(0); filter: none; }
+  10% { transform: translate(-3px, 3px) skewX(5deg); filter: hue-rotate(90deg); }
+  20% { transform: translate(3px, -3px) skewX(-5deg); filter: hue-rotate(180deg); }
+  30% { transform: translate(-2px, -2px); filter: hue-rotate(270deg); }
+  40% { transform: translate(2px, 2px); filter: hue-rotate(360deg); }
+  50% { transform: translate(-1px, 1px) skewX(2deg); }
+  60% { transform: translate(1px, -1px) skewX(-2deg); }
+}
+
+/* Scan lines - more visible */
+.scanlines::before {
   content: '';
   position: fixed;
   top: 0;
@@ -193,41 +185,250 @@ main::after {
   height: 100%;
   background: repeating-linear-gradient(
     0deg,
-    rgba(0, 0, 0, 0.1) 0px,
-    rgba(0, 0, 0, 0.1) 1px,
+    rgba(0, 0, 0, 0.15) 0px,
+    rgba(0, 0, 0, 0.15) 1px,
     transparent 1px,
     transparent 3px
   );
   pointer-events: none;
-  z-index: 20;
-  animation: scanMove 10s linear infinite;
+  z-index: 100;
+  animation: scanlineMove 8s linear infinite;
 }
 
-@keyframes scanMove {
+@keyframes scanlineMove {
   0% { transform: translateY(0); }
   100% { transform: translateY(6px); }
 }
 
-/* Video glitch effect */
-video {
-  animation: videoGlitch 15s ease-in-out infinite;
+/* VHS tracking effect */
+.vhs-tracking::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    transparent 0%,
+    rgba(255, 255, 255, 0.03) 50%,
+    transparent 100%
+  );
+  background-size: 100% 4px;
+  animation: vhsTracking 0.5s steps(10) infinite;
+  pointer-events: none;
+  z-index: 101;
 }
 
-@keyframes videoGlitch {
-  0%, 95%, 100% {
-    filter: saturate(1.2) contrast(1.1);
-    transform: scale(1);
+@keyframes vhsTracking {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(100%); }
+}
+
+/* Noise overlay - more intense */
+.noise::after {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 99;
+  animation: noiseMove 0.5s steps(10) infinite;
+}
+
+@keyframes noiseMove {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -5%); }
+  20% { transform: translate(5%, 5%); }
+  30% { transform: translate(-5%, 5%); }
+  40% { transform: translate(5%, -5%); }
+  50% { transform: translate(-5%, 0); }
+  60% { transform: translate(5%, 0); }
+  70% { transform: translate(0, 5%); }
+  80% { transform: translate(0, -5%); }
+  90% { transform: translate(5%, 5%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Fade in animation */
+.fade-in {
+  animation: fadeIn 1.5s ease-out forwards;
+  opacity: 0;
+}
+
+.fade-in-delay-1 { animation-delay: 0.3s; }
+.fade-in-delay-2 { animation-delay: 0.6s; }
+.fade-in-delay-3 { animation-delay: 0.9s; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px) skewX(-1deg); }
+  to { opacity: 1; transform: translateY(0) skewX(0deg); }
+}
+
+/* Floating animation */
+.float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+/* Pulse glow - more dramatic */
+.pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    text-shadow:
+      0 0 10px rgba(139, 92, 246, 0.5),
+      0 0 20px rgba(139, 92, 246, 0.3);
   }
-  96% {
-    filter: saturate(2) contrast(1.5) hue-rotate(90deg);
-    transform: scale(1.02) skewX(2deg);
+  50% {
+    text-shadow:
+      0 0 30px rgba(139, 92, 246, 0.8),
+      0 0 60px rgba(139, 92, 246, 0.5),
+      0 0 100px rgba(139, 92, 246, 0.3);
   }
-  97% {
-    filter: saturate(0.5) contrast(2) hue-rotate(180deg);
-    transform: scale(0.98) skewX(-3deg);
+}
+
+/* Distortion wave */
+.distort-wave {
+  animation: distortWave 10s ease-in-out infinite;
+}
+
+@keyframes distortWave {
+  0%, 100% { transform: skewX(0deg) skewY(0deg); }
+  25% { transform: skewX(0.5deg) skewY(-0.2deg); }
+  50% { transform: skewX(-0.3deg) skewY(0.3deg); }
+  75% { transform: skewX(0.2deg) skewY(-0.1deg); }
+}
+
+/* Section flow - no hard edges */
+.section-flow {
+  position: relative;
+}
+
+.section-flow::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.6));
+  pointer-events: none;
+}
+
+/* Gradient borders */
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.5;
+}
+
+/* Marquee text */
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.marquee-content {
+  display: inline-block;
+  animation: marquee 20s linear infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Section dot */
+.section-dot {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  background: var(--accent);
+  border-radius: 50%;
+  margin: 0 12px;
+  opacity: 0.6;
+  animation: dotPulse 2s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.5); }
+}
+
+/* Link styles */
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+a:hover {
+  text-shadow: 0 0 10px var(--accent);
+}
+
+/* Cursor trail effect */
+.cursor-glow {
+  cursor: crosshair;
+}
+
+/* Warped text */
+.warp-text {
+  display: inline-block;
+  animation: warpText 8s ease-in-out infinite;
+}
+
+@keyframes warpText {
+  0%, 100% {
+    transform: perspective(500px) rotateX(0deg) rotateY(0deg);
   }
-  98% {
-    filter: saturate(3) contrast(0.8) hue-rotate(270deg);
-    transform: scale(1.01) skewY(1deg);
+  25% {
+    transform: perspective(500px) rotateX(2deg) rotateY(-2deg);
+  }
+  50% {
+    transform: perspective(500px) rotateX(-1deg) rotateY(1deg);
+  }
+  75% {
+    transform: perspective(500px) rotateX(1deg) rotateY(-1deg);
+  }
+}
+
+/* Psychedelic background pulse */
+.psychedelic-bg {
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 50%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(34, 211, 238, 0.1) 0%, transparent 50%);
+  animation: psychedelicShift 15s ease-in-out infinite;
+}
+
+@keyframes psychedelicShift {
+  0%, 100% {
+    background-position: 0% 0%, 100% 0%, 50% 100%;
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    background-position: 100% 100%, 0% 100%, 50% 0%;
+    filter: hue-rotate(30deg);
   }
 }
