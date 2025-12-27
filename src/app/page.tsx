@@ -3,39 +3,35 @@
 import { useState, useEffect } from "react";
 
 const VIDEOS = [
-  // 1. XWHYSI Chrome Logo
-  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/0d04cd56-55c8-47f4-b1b8-44bbe4564e25/result_00.mp4", label: "XWHYSI Chrome Logo" },
-  // 2-6. 3D Rendered Animals
-  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/90b724c4-f77b-4299-aafb-dafc8ec895e3/result_00.mp4", label: "Low-Poly Dogs Dancing" },
-  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/858936a6-2c83-44dd-9cd5-8ec1a36a7a39/result_00.mp4", label: "Pixelated Frogs Bouncing" },
-  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/5f4d67b1-1c3f-4c8c-b916-d921b4b0164b/result_00.mp4", label: "Untextured Horses" },
-  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/69218ac5-8e8b-4c9e-a08b-4e750903a763/result_00.mp4", label: "Spinning Dolphins" },
-  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/7b869cda-0eeb-46ca-81a1-5704d16a16e6/result_00.mp4", label: "Floating Cats Stretched" },
-  // 7-10. Snowflake Fractals
-  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/15b73dbd-72d0-44e0-a848-79ee0f64d0d3/result_00.mp4", label: "Snowflake Fractal Tunnel" },
-  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/1faff18c-9488-4521-bfd4-68353b4e7993/result_00.mp4", label: "Crystal Snowflake Tunnel" },
-  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/c6e1f9b4-613b-4a4c-8bbe-58018b976da2/result_00.mp4", label: "Sacred Geometry Wormhole" },
-  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/3cac19bb-5dba-4745-ac57-1c3f2309a0b4/result_00.mp4", label: "Fractal Crystal Corridor" },
-  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/f0a5539d-e20e-45e7-beb3-8a3d359e7a12/result_00.mp4", label: "Neon Wireframe Infinity" },
-  // Rest
-  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/711d9213-876e-49ab-9f00-4c14484c9537/result_00.mp4", label: "XWHYSI Liquid Mercury" },
-  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/45c731cf-ef48-4fc0-876e-c7056da35605/result_00.mp4", label: "XWHYSI Organic Flesh" },
-  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/b3213694-67b7-4ec6-b451-ed56008b92d0/result_00.mp4", label: "Abstract Organic Flow" },
-  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/9a79a8f2-2b2f-42f8-8012-c1054b13a4fe/result_00.mp4", label: "Digital Organism" },
-  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/260ee6fc-5634-4379-a9de-39ea03efb87a/result_00.mp4", label: "Glitch Landscape" },
-  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/36c09145-7fb9-4fdd-a50f-abaa66b4d255/result_00.mp4", label: "Neural Patterns" },
-  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/96fb0ed4-0ff9-484a-8e73-a07708f07e46/result_00.mp4", label: "Björk Inspired" },
-  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/98df860d-7130-4b8f-b174-b8b39793abad/result_00.mp4", label: "Faceless Foggy Street" },
-  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/fb160d6f-5734-4ae3-a049-78d104a5f2ec/result_00.mp4", label: "Stoned Mall POV" },
-  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/bea513f0-e85c-4c6d-8030-05e2cba47096/result_00.mp4", label: "Subway Silhouettes" },
-  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/2a0fdf89-5b7d-4b8c-92b6-7a1211e278e4/result_00.mp4", label: "Mannequin Elevator" },
-  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/f0ef4636-cd46-44b5-9e7f-4cfff7c8bb5f/result_00.mp4", label: "Hands Reaching Blur" },
-  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/b4695228-1288-4470-a4f6-56ef13ad44c8/result_00.mp4", label: "TV Static Heads" },
-  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/4e366250-8ba6-4a37-97ec-0395f2c56000/result_00.mp4", label: "PS1 City Morph" },
-  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/f4083282-b716-4eb5-bf61-b6a265b1ec19/result_00.mp4", label: "Voxel Dancer Morph" },
-  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/77076ba3-46c1-4401-a0a6-a4f2088786a8/result_00.mp4", label: "N64 Room Morph" },
-  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/bf4cd2b8-53a7-4a19-bd77-e3d74c57f621/result_00.mp4", label: "PS1 Racing Morph" },
-  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/7ab098ce-0648-47ff-93bc-bda6cac9bc17/result_00.mp4", label: "Polygon Face Morph" },
+  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/0d04cd56-55c8-47f4-b1b8-44bbe4564e25/result_00.mp4", label: "Video 1" },
+  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/90b724c4-f77b-4299-aafb-dafc8ec895e3/result_00.mp4", label: "Video 2" },
+  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/858936a6-2c83-44dd-9cd5-8ec1a36a7a39/result_00.mp4", label: "Video 3" },
+  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/5f4d67b1-1c3f-4c8c-b916-d921b4b0164b/result_00.mp4", label: "Video 4" },
+  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/69218ac5-8e8b-4c9e-a08b-4e750903a763/result_00.mp4", label: "Video 5" },
+  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/7b869cda-0eeb-46ca-81a1-5704d16a16e6/result_00.mp4", label: "Video 6" },
+  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/15b73dbd-72d0-44e0-a848-79ee0f64d0d3/result_00.mp4", label: "Video 7" },
+  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/1faff18c-9488-4521-bfd4-68353b4e7993/result_00.mp4", label: "Video 8" },
+  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/c6e1f9b4-613b-4a4c-8bbe-58018b976da2/result_00.mp4", label: "Video 9" },
+  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/3cac19bb-5dba-4745-ac57-1c3f2309a0b4/result_00.mp4", label: "Video 10" },
+  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/f0a5539d-e20e-45e7-beb3-8a3d359e7a12/result_00.mp4", label: "Video 11" },
+  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/711d9213-876e-49ab-9f00-4c14484c9537/result_00.mp4", label: "Video 12" },
+  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/45c731cf-ef48-4fc0-876e-c7056da35605/result_00.mp4", label: "Video 13" },
+  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/b3213694-67b7-4ec6-b451-ed56008b92d0/result_00.mp4", label: "Video 14" },
+  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/9a79a8f2-2b2f-42f8-8012-c1054b13a4fe/result_00.mp4", label: "Video 15" },
+  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/260ee6fc-5634-4379-a9de-39ea03efb87a/result_00.mp4", label: "Video 16" },
+  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/36c09145-7fb9-4fdd-a50f-abaa66b4d255/result_00.mp4", label: "Video 17" },
+  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/96fb0ed4-0ff9-484a-8e73-a07708f07e46/result_00.mp4", label: "Video 18" },
+  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/98df860d-7130-4b8f-b174-b8b39793abad/result_00.mp4", label: "Video 19" },
+  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/fb160d6f-5734-4ae3-a049-78d104a5f2ec/result_00.mp4", label: "Video 20" },
+  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/bea513f0-e85c-4c6d-8030-05e2cba47096/result_00.mp4", label: "Video 21" },
+  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/2a0fdf89-5b7d-4b8c-92b6-7a1211e278e4/result_00.mp4", label: "Video 22" },
+  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/f0ef4636-cd46-44b5-9e7f-4cfff7c8bb5f/result_00.mp4", label: "Video 23" },
+  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/b4695228-1288-4470-a4f6-56ef13ad44c8/result_00.mp4", label: "Video 24" },
+  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/4e366250-8ba6-4a37-97ec-0395f2c56000/result_00.mp4", label: "Video 25" },
+  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/f4083282-b716-4eb5-bf61-b6a265b1ec19/result_00.mp4", label: "Video 26" },
+  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/77076ba3-46c1-4401-a0a6-a4f2088786a8/result_00.mp4", label: "Video 27" },
+  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/bf4cd2b8-53a7-4a19-bd77-e3d74c57f621/result_00.mp4", label: "Video 28" },
+  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/7ab098ce-0648-47ff-93bc-bda6cac9bc17/result_00.mp4", label: "Video 29" },
 ];
 
 const MARQUEE_TEXT = "XWHYSI • AMSTERDAM • EXPERIMENTAL • SONIC ARCHITECT • PITTSBURGH ROOTS • BREMEN BLOOD • CHAGRIN FALLS • ";
@@ -54,8 +50,18 @@ export default function Home() {
       if (e.key === "ArrowRight" || e.key === " ") {
         e.preventDefault();
         setCurrentVideo((prev) => (prev + 1) % VIDEOS.length);
+        // Try to play SoundCloud
+        const iframe = document.querySelector('iframe[src*="soundcloud"]') as HTMLIFrameElement;
+        if (iframe) {
+          iframe.contentWindow?.postMessage('{"method":"play"}', '*');
+        }
       } else if (e.key === "ArrowLeft") {
         setCurrentVideo((prev) => (prev - 1 + VIDEOS.length) % VIDEOS.length);
+        // Try to play SoundCloud
+        const iframe = document.querySelector('iframe[src*="soundcloud"]') as HTMLIFrameElement;
+        if (iframe) {
+          iframe.contentWindow?.postMessage('{"method":"play"}', '*');
+        }
       }
     };
 
