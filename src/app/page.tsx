@@ -29,6 +29,9 @@ const VIDEOS = [
   { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/77076ba3-46c1-4401-a0a6-a4f2088786a8/result_00.mp4", label: "N64 Room Morph" },
   { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/bf4cd2b8-53a7-4a19-bd77-e3d74c57f621/result_00.mp4", label: "PS1 Racing Morph" },
   { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/7ab098ce-0648-47ff-93bc-bda6cac9bc17/result_00.mp4", label: "Polygon Face Morph" },
+  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/0d04cd56-55c8-47f4-b1b8-44bbe4564e25/result_00.mp4", label: "XWHYSI Chrome Logo" },
+  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/711d9213-876e-49ab-9f00-4c14484c9537/result_00.mp4", label: "XWHYSI Liquid Mercury" },
+  { url: "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/45c731cf-ef48-4fc0-876e-c7056da35605/result_00.mp4", label: "XWHYSI Organic Flesh" },
 ];
 
 const MARQUEE_TEXT = "XWHYSI • AMSTERDAM • EXPERIMENTAL • SONIC ARCHITECT • PITTSBURGH ROOTS • BREMEN BLOOD • CHAGRIN FALLS • ";
